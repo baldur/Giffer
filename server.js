@@ -2,8 +2,7 @@ var http  = require('http'),
     fs    = require('fs'),
     url   = require('url');
 
-var fd    = fs.openSync('./giffer.gif', 'r'),
-    size  = fs.fstatSync(fd).size;
+var giffer = fs.readFileSync('./giffer.gif')
 
 var listners = require('./listners').run();
 listners.add();
@@ -19,14 +18,12 @@ server = http.createServer(function(req, res) {
     }
 
     res.writeHead(200, {
-        'Content-Length': size,
+        'Content-Length': giffer.length,
         'Content-Type': 'image/gif',
         'Content-Disposition': 'inline'
     });
-    res._send(''); // force flush
-    fs.sendfile(req.connection.fd, fd, 0, size, function(err, n) {
-        res.end();
-    });
+    res.write(giffer);
+    res.end();
 
     listners.eventer().record(request, headers);
 });
