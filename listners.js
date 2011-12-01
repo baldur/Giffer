@@ -17,11 +17,11 @@ var eventer = new Eventer();
 exports.run = function(){
     return {
         'add' : function(){
-             var modules = fs.readdirSync('./modules');
+             var modules = fs.readdirSync('./plugins');
              modules.forEach(function(mod) {
                  eventer.on('record', function(entry) {
                      setTimeout(function(){
-                         require("./modules/"+mod).hook(entry);
+                         require("./plugins/"+mod).hook(entry);
                      }, 10);
                  });
              });
