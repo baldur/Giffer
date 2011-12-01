@@ -1,3 +1,5 @@
+var argvs = process.argv.splice(2);
+
 var http  = require('http'),
     fs    = require('fs'),
     url   = require('url');
@@ -28,8 +30,10 @@ server = http.createServer(function(req, res) {
     listners.eventer().record(request, headers);
 });
 
-console.log("Starting server. on port", 8080);
+port = (argvs && argvs[0]) ? argvs[0] : 8080;
 
-server.listen(8080);
+console.log("Starting server. on port", port);
+
+server.listen(port);
 
 
