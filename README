@@ -1,0 +1,19 @@
+Giffer
+  -------
+  install redis and redis client
+
+  start app
+  node server.js <port>
+
+  if you want to track things place a file in the modules directory and
+  implement exports['hook'] which gets called with the request and you can
+  manipulate it
+
+  example 
+    modules/ab.js
+      
+      export['hook'] = function(entry) {
+          console.log('look I have an entry', entry);
+          // do something more useful
+      }
+
